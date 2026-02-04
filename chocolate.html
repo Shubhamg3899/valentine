@@ -1,244 +1,270 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chocolate Day | My Sweetest Love</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --dark-choco: #3c0900;
-            --milk-choco: #7b3f00;
-            --caramel: #d4a373;
-            --cream: #faedcd;
-            --accent: #ff9a9e;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chocolate Day | My Sweetest Love 🍫</title>
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            background: linear-gradient(180deg, #2b0f0e 0%, #5d2e24 100%);
-            font-family: 'Quicksand', sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            color: var(--cream);
-        }
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
 
-        /* Moving Background Stream */
-        .choco-stream {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/dark-wood.png');
-            opacity: 0.1;
-            z-index: -1;
-        }
+<style>
+:root{
+    --dark-choco:#3c0900;
+    --milk-choco:#7b3f00;
+    --caramel:#d4a373;
+    --cream:#faedcd;
+    --accent:#ff9a9e;
+}
 
-        .container {
-            width: 90%;
-            max-width: 500px;
-            z-index: 10;
-            perspective: 1000px;
-        }
+*{box-sizing:border-box}
 
-        .choco-card {
-            background: rgba(60, 9, 0, 0.85);
-            border: 3px solid var(--caramel);
-            border-radius: 40px;
-            padding: 40px 30px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-            backdrop-filter: blur(12px);
-            text-align: center;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+body{
+    margin:0;
+    min-height:100vh;
+    background:linear-gradient(180deg,#2b0f0e 0%,#5d2e24 100%);
+    font-family:'Quicksand',sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow-x:hidden;
+    color:var(--cream);
+}
 
-        h1 {
-            font-family: 'Pacifico', cursive;
-            font-size: 3.2rem;
-            color: var(--caramel);
-            margin: 0;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-        }
+/* Background texture */
+.choco-stream{
+    position:fixed;
+    inset:0;
+    background:url('https://www.transparenttextures.com/patterns/dark-wood.png');
+    opacity:.12;
+    z-index:-1;
+}
 
-        /* Progress Bar */
-        .progress-container {
-            width: 100%;
-            height: 10px;
-            background: #2b0f0e;
-            border-radius: 10px;
-            margin: 20px 0;
-            overflow: hidden;
-            border: 1px solid var(--caramel);
-        }
+/* Page wrapper (mobile-safe scroll) */
+.page{
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px 15px;
+}
 
-        .progress-bar {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--caramel), var(--accent));
-            transition: width 0.5s ease;
-        }
+/* Card */
+.container{
+    width:100%;
+    max-width:520px;
+}
 
-        .choco-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin: 30px 0;
-        }
+.choco-card{
+    background:rgba(60,9,0,.9);
+    border:3px solid var(--caramel);
+    border-radius:38px;
+    padding:35px 25px;
+    box-shadow:0 25px 60px rgba(0,0,0,.65);
+    backdrop-filter:blur(12px);
+    text-align:center;
+    animation:cardIn 1s ease;
+}
 
-        .truffle {
-            background: var(--milk-choco);
-            aspect-ratio: 1;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 35px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+@keyframes cardIn{
+    from{opacity:0;transform:translateY(40px) scale(.95)}
+    to{opacity:1;transform:translateY(0) scale(1)}
+}
 
-        .truffle:hover {
-            transform: scale(1.1) rotate(5deg);
-            background: var(--caramel);
-        }
+h1{
+    font-family:'Pacifico',cursive;
+    font-size:3rem;
+    color:var(--caramel);
+    margin:5px 0;
+    text-shadow:2px 2px 10px rgba(0,0,0,.5);
+}
 
-        .truffle.clicked {
-            transform: scale(0.8);
-            opacity: 0.5;
-            pointer-events: none;
-        }
+/* Progress */
+.progress-container{
+    width:100%;
+    height:10px;
+    background:#2b0f0e;
+    border-radius:10px;
+    margin:20px 0;
+    overflow:hidden;
+    border:1px solid var(--caramel);
+}
 
-        #messageArea {
-            font-family: 'Caveat', cursive;
-            font-size: 1.6rem;
-            color: var(--caramel);
-            min-height: 40px;
-            margin-bottom: 20px;
-            animation: fadeIn 0.5s;
-        }
+.progress-bar{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,var(--caramel),var(--accent));
+    transition:width .4s ease;
+}
 
-        /* Final Love Letter Section */
-        #finalSurprise {
-            display: none;
-            text-align: left;
-            animation: finalReveal 1.2s forwards;
-        }
+/* Grid */
+.choco-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    margin:25px 0;
+}
 
-        @keyframes finalReveal {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
+/* Chocolate */
+.truffle{
+    background:var(--milk-choco);
+    aspect-ratio:1;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+    cursor:pointer;
+    transition:.35s cubic-bezier(.175,.885,.32,1.275);
+    box-shadow:0 10px 20px rgba(0,0,0,.3);
+}
 
-        .letter-text {
-            font-family: 'Caveat', cursive;
-            font-size: 1.8rem;
-            line-height: 1.4;
-            color: var(--cream);
-        }
+.truffle:hover{
+    transform:scale(1.12) rotate(4deg);
+    background:var(--caramel);
+}
 
-        .btn-reset {
-            margin-top: 20px;
-            background: transparent;
-            border: 1px solid var(--caramel);
-            color: var(--caramel);
-            padding: 8px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-        }
+.truffle.clicked{
+    transform:scale(.75);
+    opacity:.5;
+    pointer-events:none;
+}
 
-        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-    </style>
+/* Message */
+#messageArea{
+    font-family:'Caveat',cursive;
+    font-size:1.5rem;
+    color:var(--caramel);
+    min-height:42px;
+    margin-bottom:10px;
+    animation:fadeIn .4s;
+}
+
+/* Final Letter */
+#finalSurprise{
+    display:none;
+    text-align:left;
+    animation:finalReveal 1s forwards;
+}
+
+@keyframes finalReveal{
+    from{opacity:0;transform:scale(.92)}
+    to{opacity:1;transform:scale(1)}
+}
+
+.letter-text{
+    font-family:'Caveat',cursive;
+    font-size:1.7rem;
+    line-height:1.45;
+}
+
+.btn-reset{
+    margin-top:20px;
+    background:transparent;
+    border:1px solid var(--caramel);
+    color:var(--caramel);
+    padding:10px 22px;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+/* Mobile tweaks */
+@media(max-width:480px){
+    h1{font-size:2.6rem}
+    .letter-text{font-size:1.5rem}
+    .truffle{font-size:28px}
+}
+</style>
 </head>
+
 <body>
 
-    <div class="choco-stream"></div>
+<div class="choco-stream"></div>
 
-    <div class="container">
-        <div class="choco-card" id="card">
-            <div id="gameView">
-                <div style="font-size: 50px;">🍬</div>
-                <h1>Chocolate Day</h1>
-                <p style="font-style: italic; opacity: 0.8;">My life is sweet because of you...</p>
+<div class="page">
+<div class="container">
+<div class="choco-card" id="card">
 
-                <div class="progress-container">
-                    <div class="progress-bar" id="bar"></div>
-                </div>
+    <div id="gameView">
+        <div style="font-size:50px;">🍬</div>
+        <h1>Chocolate Day</h1>
+        <p style="font-style:italic;opacity:.85">My life is sweet because of you…</p>
 
-                <div id="messageArea">Pick a treat to start!</div>
+        <div class="progress-container">
+            <div class="progress-bar" id="bar"></div>
+        </div>
 
-                <div class="choco-grid">
-                    <div class="truffle" onclick="handleChoco(this, 'You melt my heart every single day!')">🍫</div>
-                    <div class="truffle" onclick="handleChoco(this, 'You are the caramel in my life!')">🍯</div>
-                    <div class="truffle" onclick="handleChoco(this, 'Still addicted to your beautiful smile.')">🍪</div>
-                    <div class="truffle" onclick="handleChoco(this, ' Sweeter than any truffle in the world.')">🍩</div>
-                    <div class="truffle" onclick="handleChoco(this, 'To my favorite person, my forever love.')">💝</div>
-                    <div class="truffle" onclick="handleChoco(this, 'I love you more than chocolate!')">🍦</div>
-                </div>
-            </div>
+        <div id="messageArea">Pick a treat to start 🍫</div>
 
-            <div id="finalSurprise">
-                <h2 style="font-family: 'Pacifico'; color: var(--caramel);">My Dearest Wife,</h2>
-                <div class="letter-text">
-                    Just like a box of chocolates, our life is full of different flavors—some sweet, some nutty, but all of them are perfect because I'm sharing them with you. <br><br>
-                    Thank you for being the sweetness that keeps me going. Today and every day, you are my favorite treat. <br><br>
-                    <strong>Happy Chocolate Day!</strong>
-                </div>
-                <button class="btn-reset" onclick="location.reload()">Open Box Again</button>
-            </div>
+        <div class="choco-grid">
+            <div class="truffle" onclick="handleChoco(this,event,'You melt my heart every single day!')">🍫</div>
+            <div class="truffle" onclick="handleChoco(this,event,'You are the caramel in my life!')">🍯</div>
+            <div class="truffle" onclick="handleChoco(this,event,'Still addicted to your beautiful smile.')">🍪</div>
+            <div class="truffle" onclick="handleChoco(this,event,'Sweeter than any truffle in the world.')">🍩</div>
+            <div class="truffle" onclick="handleChoco(this,event,'To my favorite person, my forever love.')">💝</div>
+            <div class="truffle" onclick="handleChoco(this,event,'I love you more than chocolate!')">🍦</div>
         </div>
     </div>
 
-    <script>
-        let clicks = 0;
-        const total = 6;
+    <div id="finalSurprise">
+        <h2 style="font-family:'Pacifico';color:var(--caramel)">My Dearest Wife,</h2>
+        <div class="letter-text">
+            Just like a box of chocolates, our life is full of flavors—  
+            some sweet, some nutty, but all perfect because I share them with you.  
+            <br><br>
+            You are my favorite treat today and always.  
+            <br><br>
+            <strong>Happy Chocolate Day 🍫❤️</strong>
+        </div>
+        <button class="btn-reset" onclick="location.href='index.html'">Back to Our Journey</button>
+    </div>
 
-        function handleChoco(el, msg) {
-            el.classList.add('clicked');
-            clicks++;
-            
-            // Update Message
-            const msgArea = document.getElementById('messageArea');
-            msgArea.innerText = msg;
-            
-            // Update Progress Bar
-            const percent = (clicks / total) * 100;
-            document.getElementById('bar').style.width = percent + '%';
+</div>
+</div>
+</div>
 
-            // Create some heart bursts
-            createBurst(el);
+<script>
+let clicks=0,total=6;
 
-            if(clicks === total) {
-                setTimeout(revealLetter, 1200);
-            }
-        }
+function handleChoco(el,event,msg){
+    el.classList.add('clicked');
+    clicks++;
 
-        function createBurst(el) {
-            for(let i=0; i<6; i++) {
-                const heart = document.createElement('div');
-                heart.innerText = '❤️';
-                heart.style.position = 'fixed';
-                heart.style.left = event.clientX + 'px';
-                heart.style.top = event.clientY + 'px';
-                heart.style.transition = 'all 1s ease';
-                heart.style.pointerEvents = 'none';
-                document.body.appendChild(heart);
-                
-                setTimeout(() => {
-                    heart.style.transform = `translate(${(Math.random()-0.5)*150}px, ${(Math.random()-0.5)*150}px) scale(0)`;
-                    heart.style.opacity = '0';
-                }, 10);
-                setTimeout(() => heart.remove(), 1000);
-            }
-        }
+    document.getElementById('messageArea').innerText=msg;
+    document.getElementById('bar').style.width=(clicks/total)*100+'%';
 
-        function revealLetter() {
-            document.getElementById('gameView').style.display = 'none';
-            document.getElementById('finalSurprise').style.display = 'block';
-            document.getElementById('card').style.background = 'rgba(43, 15, 14, 0.95)';
-        }
-    </script>
+    createBurst(event.clientX,event.clientY);
+
+    if(clicks===total){
+        setTimeout(revealLetter,1200);
+    }
+}
+
+function createBurst(x,y){
+    for(let i=0;i<8;i++){
+        const h=document.createElement('div');
+        h.innerHTML='❤️';
+        h.style.position='fixed';
+        h.style.left=x+'px';
+        h.style.top=y+'px';
+        h.style.pointerEvents='none';
+        document.body.appendChild(h);
+
+        h.animate([
+            {transform:'translate(0,0) scale(1)',opacity:1},
+            {transform:`translate(${(Math.random()-0.5)*160}px,${(Math.random()-0.5)*160}px) scale(0)`,opacity:0}
+        ],{duration:1000});
+
+        setTimeout(()=>h.remove(),1000);
+    }
+}
+
+function revealLetter(){
+    document.getElementById('gameView').style.display='none';
+    document.getElementById('finalSurprise').style.display='block';
+    document.getElementById('card').style.background='rgba(43,15,14,.95)';
+}
+</script>
+
 </body>
 </html>

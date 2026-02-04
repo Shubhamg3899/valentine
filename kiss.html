@@ -1,305 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kiss Day | Soul Connection</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;600&family=Great+Vibes&family=Parisienne&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --neon: #ff0054;
-            --electric: #7000ff;
-            --dark: #020005;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        body {
-            margin: 0;
-            height: 100vh;
-            background-color: var(--dark);
-            font-family: 'Montserrat', sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            touch-action: none;
-        }
+<title>Kiss Day | Soul Connection</title>
 
-        /* Cinematic Background Aurora */
-        .aurora {
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 50% 50%, rgba(255, 0, 84, 0.1) 0%, rgba(112, 0, 255, 0.05) 30%, transparent 70%);
-            animation: rotateAurora 20s linear infinite;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Great+Vibes&family=Parisienne&display=swap" rel="stylesheet">
 
-        @keyframes rotateAurora {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+<style>
+:root{
+    --neon:#ff0054;
+    --electric:#7000ff;
+    --dark:#020005;
+}
 
-        .main-container {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            width: 100%;
-        }
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
 
-        /* The "Luminous" Lips */
-        .kiss-trigger {
-            width: 160px;
-            height: 160px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 0, 84, 0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 70px;
-            margin: 0 auto;
-            position: relative;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(255, 0, 84, 0.2);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            -webkit-tap-highlight-color: transparent;
-        }
+body{
+    margin:0;
+    min-height:100vh;
+    background:var(--dark);
+    font-family:'Montserrat',sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    touch-action:manipulation;
+}
 
-        /* Heartbeat Glow Animation */
-        .kiss-trigger::after {
-            content: '';
-            position: absolute;
-            inset: -10px;
-            border-radius: 50%;
-            border: 2px solid var(--neon);
-            opacity: 0;
-            animation: ripple 2s infinite;
-        }
+/* HOME BUTTON */
+.home-btn{
+    position:fixed;
+    top:15px;
+    left:15px;
+    padding:10px 16px;
+    border-radius:30px;
+    font-size:.75rem;
+    font-weight:600;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    background:rgba(255,255,255,.9);
+    color:var(--neon);
+    border:1px solid var(--neon);
+    box-shadow:0 6px 15px rgba(255,0,84,.3);
+    cursor:pointer;
+    z-index:1000;
+}
+.home-btn:active{
+    transform:scale(.95);
+}
 
-        @keyframes ripple {
-            0% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
+/* Aurora Background */
+.aurora{
+    position:fixed;
+    inset:-50%;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255,0,84,.15), transparent 60%),
+      radial-gradient(circle at 70% 70%, rgba(112,0,255,.12), transparent 60%);
+    animation:spin 25s linear infinite;
+}
+@keyframes spin{
+    from{transform:rotate(0deg)}
+    to{transform:rotate(360deg)}
+}
 
-        .instruction {
-            margin-top: 50px;
-            color: white;
-            letter-spacing: 5px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            opacity: 0.5;
-            animation: blink 2s infinite;
-        }
+/* Main */
+.main-container{
+    position:relative;
+    z-index:5;
+    text-align:center;
+    padding:20px;
+    width:100%;
+    max-width:420px;
+}
 
-        @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.7; } }
+h1{
+    font-family:'Great Vibes';
+    color:white;
+    font-size:clamp(2.8rem,8vw,4rem);
+    margin:0 0 10px;
+    text-shadow:0 0 25px var(--neon);
+}
 
-        /* Final Reveal - High End Letter */
-        #finalNote {
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at center, #1a0008, #020005);
-            z-index: 100;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-            text-align: center;
-            backdrop-filter: blur(20px);
-        }
+.subtitle{
+    color:var(--neon);
+    letter-spacing:3px;
+    font-size:.8rem;
+    margin-bottom:50px;
+    opacity:.9;
+}
 
-        .letter-content {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px 30px;
-            border-radius: 40px;
-            max-width: 400px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            position: relative;
-            overflow: hidden;
-        }
+/* Kiss Button */
+.kiss-trigger{
+    width:clamp(120px,40vw,160px);
+    height:clamp(120px,40vw,160px);
+    border-radius:50%;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,0,84,.4);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:clamp(55px,14vw,70px);
+    margin:0 auto;
+    cursor:pointer;
+    box-shadow:0 0 25px rgba(255,0,84,.3);
+    transition:transform .2s ease;
+    position:relative;
+}
 
-        .letter-content::before {
-            content: '“';
-            position: absolute;
-            top: 10px; left: 20px;
-            font-size: 8rem;
-            color: var(--neon);
-            opacity: 0.1;
-            font-family: serif;
-        }
+.kiss-trigger::after{
+    content:'';
+    position:absolute;
+    inset:-12px;
+    border-radius:50%;
+    border:2px solid var(--neon);
+    animation:pulse 2s infinite;
+    opacity:.4;
+}
 
-        .thought {
-            font-family: 'Parisienne', cursive;
-            font-size: 1.6rem;
-            line-height: 1.6;
-            color: #eee;
-            position: relative;
-            z-index: 2;
-        }
+@keyframes pulse{
+    0%{transform:scale(1);opacity:.4}
+    100%{transform:scale(1.5);opacity:0}
+}
 
-        .thought strong {
-            color: var(--neon);
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.2rem;
-            text-shadow: 0 0 15px var(--neon);
-        }
+.instruction{
+    margin-top:40px;
+    color:white;
+    letter-spacing:4px;
+    font-size:.7rem;
+    opacity:.6;
+    animation:blink 2s infinite;
+}
+@keyframes blink{
+    0%,100%{opacity:.2}
+    50%{opacity:.7}
+}
 
-        /* Advanced Particle Veins */
-        .energy-particle {
-            position: absolute;
-            pointer-events: none;
-            background: var(--neon);
-            border-radius: 50%;
-            filter: blur(1px);
-            z-index: 1000;
-        }
+/* Final Screen */
+#finalNote{
+    position:fixed;
+    inset:0;
+    background:radial-gradient(circle,#1a0008,#020005);
+    z-index:50;
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    overflow-y:auto;
+}
 
-        .btn-restart {
-            margin-top: 40px;
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #777;
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-    </style>
+.letter-content{
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.15);
+    padding:30px 25px;
+    border-radius:32px;
+    max-width:420px;
+    box-shadow:0 25px 60px rgba(0,0,0,.6);
+}
+
+.thought{
+    font-family:'Parisienne';
+    font-size:clamp(1.3rem,4vw,1.6rem);
+    line-height:1.6;
+    color:#eee;
+}
+
+.thought strong{
+    font-family:'Great Vibes';
+    color:var(--neon);
+    font-size:clamp(1.9rem,6vw,2.3rem);
+    text-shadow:0 0 18px var(--neon);
+}
+
+.btn-restart{
+    margin-top:35px;
+    padding:14px 32px;
+    border-radius:30px;
+    background:transparent;
+    border:1px solid rgba(255,255,255,.3);
+    color:#aaa;
+    letter-spacing:2px;
+    font-size:.7rem;
+}
+
+/* Energy Particles */
+.energy-particle{
+    position:fixed;
+    width:3px;
+    height:3px;
+    background:var(--neon);
+    border-radius:50%;
+    filter:blur(1px);
+    pointer-events:none;
+    z-index:1000;
+}
+</style>
 </head>
+
 <body>
 
-    <div class="aurora"></div>
+<!-- HOME BUTTON -->
+<button class="home-btn" onclick="location.href='index.html'">🏠 Home</button>
 
-    <div class="main-container" id="gameView">
-        <h1 style="font-family: 'Great Vibes'; color: white; font-size: 4rem; margin-bottom: 5px; text-shadow: 0 0 20px var(--neon);">Kiss Day</h1>
-        <p style="color: var(--neon); margin-bottom: 60px; font-weight: 200; letter-spacing: 3px; font-size: 0.8rem;">SOUL CONNECTION</p>
+<div class="aurora"></div>
 
-        <div class="kiss-trigger" 
-             id="target"
-             ontouchstart="handleStart(event)" 
-             ontouchend="handleEnd(event)"
-             onmousedown="handleStart(event)"
-             onmouseup="handleEnd(event)">
-            💋
-        </div>
+<div class="main-container" id="gameView">
+    <h1>Kiss Day</h1>
+    <div class="subtitle">SOUL CONNECTION</div>
 
-        <p class="instruction" id="hint">Place your thumb to connect</p>
+    <div class="kiss-trigger"
+         id="target"
+         ontouchstart="startHold(event)"
+         ontouchend="endHold()"
+         onmousedown="startHold(event)"
+         onmouseup="endHold()">
+        💋
     </div>
 
-    <div id="finalNote">
-        <div class="letter-content animate__animated animate__fadeInUp">
-            <div style="font-size: 40px; margin-bottom: 20px;">✨💖✨</div>
-            <div class="thought">
-                "My Dearest Queen,<br><br>
-                A kiss is not just a gesture; it is the <strong>Silent Language</strong> of my heart. 
-                When my lips meet yours, the world fades into a blur, and for that infinite moment, we are <strong>One</strong>. 
-                <br><br>
-                Thank you for being the magic that keeps my soul alive. Today, I am sending you a kiss that carries every ounce of my love."
-            </div>
+    <div class="instruction" id="hint">Place your thumb to connect</div>
+</div>
+
+<div id="finalNote">
+    <div class="letter-content">
+        <div style="font-size:38px;margin-bottom:15px;">✨💖✨</div>
+        <div class="thought">
+            My Dearest Queen,<br><br>
+            A kiss is the <strong>silent language</strong> of my heart.  
+            When my lips meet yours, the world disappears, and for that moment, we are <strong>one</strong>.
+            <br><br>
+            This kiss carries every ounce of my love — always.
         </div>
-        <button class="btn-restart" onclick="location.reload()">Send Another Kiss</button>
     </div>
 
-    <script>
-        let holdTimer;
-        let progress = 0;
-        const target = document.getElementById('target');
-        const hint = document.getElementById('hint');
+    <button class="btn-restart" onclick="location.reload()">Send Another Kiss</button>
+</div>
 
-        function handleStart(e) {
-            e.preventDefault();
-            target.style.transform = "scale(0.85)";
-            target.style.background = "rgba(255, 0, 84, 0.1)";
-            
-            holdTimer = setInterval(() => {
-                progress += 1.5;
-                
-                // Fire Energy Veins
-                spawnEnergy(e);
-                
-                target.style.boxShadow = `0 0 ${progress * 2}px ${progress/2}px var(--neon), inset 0 0 20px var(--neon)`;
-                hint.innerText = "Fusing Souls...";
-                hint.style.color = "white";
-                hint.style.opacity = "1";
+<script>
+let timer=null;
+let progress=0;
+const target=document.getElementById("target");
+const hint=document.getElementById("hint");
 
-                if (progress >= 100) {
-                    clearInterval(holdTimer);
-                    complete();
-                }
-            }, 30);
+function startHold(e){
+    e.preventDefault();
+    if(timer) return;
+
+    target.style.transform="scale(.9)";
+    hint.innerText="Fusing Souls…";
+    hint.style.opacity="1";
+
+    timer=setInterval(()=>{
+        progress+=2;
+        glow();
+        spawnParticle(e);
+
+        if(progress>=100){
+            finish();
         }
+    },30);
+}
 
-        function handleEnd() {
-            clearInterval(holdTimer);
-            if (progress < 100) {
-                progress = 0;
-                target.style.transform = "scale(1)";
-                target.style.background = "rgba(255, 255, 255, 0.03)";
-                target.style.boxShadow = "0 0 20px rgba(255, 0, 84, 0.2)";
-                hint.innerText = "Place your thumb to connect";
-                hint.style.color = "white";
-            }
-        }
+function endHold(){
+    clearInterval(timer);
+    timer=null;
+    if(progress<100){
+        progress=0;
+        target.style.transform="scale(1)";
+        target.style.boxShadow="0 0 25px rgba(255,0,84,.3)";
+        hint.innerText="Place your thumb to connect";
+    }
+}
 
-        function spawnEnergy(e) {
-            const pos = e.touches ? e.touches[0] : e;
-            const count = 3;
-            
-            for(let i=0; i<count; i++) {
-                const p = document.createElement('div');
-                p.className = 'energy-particle';
-                const size = Math.random() * 3 + 1 + 'px';
-                p.style.width = size; p.style.height = size;
-                
-                // Start at thumb position
-                p.style.left = pos.clientX + 'px';
-                p.style.top = pos.clientY + 'px';
-                
-                document.body.appendChild(p);
-                
-                // Animate towards center of the lips
-                const rect = target.getBoundingClientRect();
-                const targetX = rect.left + rect.width / 2;
-                const targetY = rect.top + rect.height / 2;
-                
-                const angle = Math.random() * Math.PI * 2;
-                const dist = 50 + Math.random() * 100;
-                
-                p.animate([
-                    { transform: `translate(0, 0) scale(1)`, opacity: 1 },
-                    { transform: `translate(${(targetX - pos.clientX) + (Math.random()-0.5)*50}px, ${(targetY - pos.clientY) + (Math.random()-0.5)*50}px) scale(0)`, opacity: 0 }
-                ], {
-                    duration: 800 + Math.random() * 400,
-                    easing: 'ease-out'
-                });
+function glow(){
+    target.style.boxShadow=`0 0 ${progress*2}px var(--neon)`;
+}
 
-                setTimeout(() => p.remove(), 1200);
-            }
-        }
+function spawnParticle(e){
+    const p=document.createElement("div");
+    p.className="energy-particle";
+    const touch=e.touches?e.touches[0]:e;
+    p.style.left=touch.clientX+"px";
+    p.style.top=touch.clientY+"px";
+    document.body.appendChild(p);
 
-        function complete() {
-            if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 200]);
-            
-            // Final Flash
-            const flash = document.createElement('div');
-            flash.style.position = 'fixed';
-            flash.style.inset = '0';
-            flash.style.background = 'white';
-            flash.style.zIndex = '2000';
-            flash.style.opacity = '0';
-            document.body.appendChild(flash);
-            
-            flash.animate([
-                { opacity: 0 }, { opacity: 1 }, { opacity: 0 }
-            ], { duration: 500 });
+    const rect=target.getBoundingClientRect();
+    p.animate([
+        {transform:"translate(0,0)",opacity:1},
+        {transform:`translate(${rect.left+rect.width/2-touch.clientX}px,${rect.top+rect.height/2-touch.clientY}px) scale(0)`,opacity:0}
+    ],{duration:900,easing:"ease-out"});
 
-            setTimeout(() => {
-                document.getElementById('gameView').style.display = "none";
-                document.getElementById('finalNote').style.display = "flex";
-                flash.remove();
-            }, 250);
-        }
-    </script>
+    setTimeout(()=>p.remove(),900);
+}
+
+function finish(){
+    clearInterval(timer);
+    if(navigator.vibrate) navigator.vibrate([100,50,150]);
+
+    document.getElementById("gameView").style.display="none";
+    document.getElementById("finalNote").style.display="flex";
+}
+</script>
+
 </body>
 </html>

@@ -1,250 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teddy Day | My Forever Cuddle</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --soft-pink: #fec5bb;
-            --deep-rose: #fae1dd;
-            --accent: #ff85a1;
-            --text-color: #6d597a;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teddy Day | My Forever Cuddle 🧸</title>
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #f8edeb 0%, #ffd7ba 100%);
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
 
-        /* Ambient floating hearts */
-        .ambient-heart {
-            position: absolute;
-            color: var(--accent);
-            opacity: 0.3;
-            pointer-events: none;
-            z-index: 1;
-            animation: floatUp 6s linear infinite;
-        }
+<style>
+:root{
+    --soft-pink:#fec5bb;
+    --deep-rose:#fae1dd;
+    --accent:#ff85a1;
+    --text:#6d597a;
+}
 
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-            50% { opacity: 0.5; }
-            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-        }
+*{box-sizing:border-box}
 
-        .container {
-            width: 90%;
-            max-width: 420px;
-            z-index: 10;
-        }
+body{
+    margin:0;
+    min-height:100vh;
+    background:linear-gradient(135deg,#f8edeb 0%,#ffd7ba 100%);
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+    color:var(--text);
+}
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 2px solid white;
-            border-radius: 50px;
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
-            position: relative;
-            transition: all 0.8s ease;
-        }
+/* Floating background petals */
+.ambient-heart{
+    position:fixed;
+    pointer-events:none;
+    z-index:0;
+    opacity:.25;
+    animation:floatUp 7s linear infinite;
+}
 
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
-            color: var(--text-color);
-            margin: 0;
-        }
+@keyframes floatUp{
+    from{transform:translateY(110vh) scale(.6)}
+    to{transform:translateY(-10vh) scale(1.2)}
+}
 
-        .hint {
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            color: var(--text-color);
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
+/* Page wrapper */
+.page{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px 15px;
+}
 
-        /* Center Teddy */
-        .center-stage {
-            height: 250px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+/* Container */
+.container{
+    width:100%;
+    max-width:430px;
+    z-index:5;
+}
 
-        #mainTeddy {
-            font-size: 100px;
-            z-index: 5;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
-        }
+/* Card */
+.glass-card{
+    background:rgba(255,255,255,.55);
+    backdrop-filter:blur(18px);
+    border:2px solid #fff;
+    border-radius:45px;
+    padding:38px 22px;
+    text-align:center;
+    box-shadow:0 25px 55px rgba(0,0,0,.12);
+    animation:cardIn 1s ease;
+    transition:.8s ease;
+}
 
-        /* Floating interaction bears */
-        .orbit-bear {
-            position: absolute;
-            font-size: 40px;
-            cursor: pointer;
-            z-index: 10;
-            transition: all 0.7s cubic-bezier(0.6, -0.28, 0.735, 0.045);
-        }
+@keyframes cardIn{
+    from{opacity:0;transform:translateY(40px) scale(.92)}
+    to{opacity:1;transform:translateY(0) scale(1)}
+}
 
-        .orbit-bear:hover { transform: scale(1.2); }
+h1{
+    font-family:'Dancing Script',cursive;
+    font-size:3.2rem;
+    margin:0;
+}
 
-        /* Final Message */
-        #finalMessage {
-            display: none;
-            text-align: center;
-            animation: popIn 0.8s forwards;
-        }
+.hint{
+    font-size:.85rem;
+    letter-spacing:1px;
+    font-weight:600;
+    margin-bottom:10px;
+}
 
-        @keyframes popIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
+/* Center stage */
+.center-stage{
+    height:240px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
 
-        .letter {
-            font-family: 'Caveat', cursive;
-            font-size: 1.7rem;
-            line-height: 1.4;
-            color: #4a4e69;
-            background: rgba(255,255,255,0.6);
-            padding: 25px;
-            border-radius: 30px;
-            margin-top: 20px;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
-            text-align: left;
-        }
+#mainTeddy{
+    font-size:95px;
+    z-index:5;
+    transition:.4s cubic-bezier(.175,.885,.32,1.275);
+    filter:drop-shadow(0 10px 15px rgba(0,0,0,.12));
+}
 
-        .btn-restart {
-            margin-top: 20px;
-            background: var(--text-color);
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-    </style>
+/* Orbit bears */
+.orbit-bear{
+    position:absolute;
+    font-size:38px;
+    cursor:pointer;
+    transition:.6s cubic-bezier(.6,-0.28,.735,.045);
+}
+
+.orbit-bear:hover{transform:scale(1.25)}
+
+/* Final message */
+#finalMessage{
+    display:none;
+    animation:popIn .9s forwards;
+}
+
+@keyframes popIn{
+    from{opacity:0;transform:scale(.85)}
+    to{opacity:1;transform:scale(1)}
+}
+
+.letter{
+    font-family:'Caveat',cursive;
+    font-size:1.6rem;
+    line-height:1.45;
+    background:rgba(255,255,255,.75);
+    padding:22px;
+    border-radius:28px;
+    margin-top:18px;
+    text-align:left;
+}
+
+.btn-restart{
+    margin-top:20px;
+    background:var(--text);
+    color:white;
+    border:none;
+    padding:10px 26px;
+    border-radius:30px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+/* Mobile tweaks */
+@media(max-width:480px){
+    h1{font-size:2.8rem}
+    #mainTeddy{font-size:85px}
+    .orbit-bear{font-size:34px}
+    .letter{font-size:1.45rem}
+}
+</style>
 </head>
+
 <body>
 
-    <div class="container">
-        <div class="glass-card" id="card">
-            
-            <div id="gameView">
-                <h1>Teddy Day</h1>
-                <p class="hint">TAP THE BEARS TO SEND HUGS</p>
+<div class="page">
+<div class="container">
+<div class="glass-card" id="card">
 
-                <div class="center-stage" id="stage">
-                    <div id="mainTeddy">🧸</div>
-                    </div>
-            </div>
+    <!-- GAME -->
+    <div id="gameView">
+        <h1>Teddy Day</h1>
+        <p class="hint">TAP THE BEARS TO SEND HUGS 🤍</p>
 
-            <div id="finalMessage">
-                <div id="bigTeddyDisplay" style="font-size: 100px; margin-bottom: 10px;">🧸❤️</div>
-                <h2 style="font-family: 'Dancing Script'; font-size: 2.5rem; color: var(--text-color); margin: 0;">My Sweetest Wife,</h2>
-                <div class="letter">
-                    Just like a teddy bear, I promise to be your constant source of comfort and warmth. <br><br>
-                    You make my life feel like a soft, cozy hug every single day. Thank you for being my favorite person to cuddle with. <br><br>
-                    <strong>Happy Teddy Day, My Love!</strong>
-                </div>
-                <button class="btn-restart" onclick="location.reload()">Send More Hugs</button>
-            </div>
-
+        <div class="center-stage" id="stage">
+            <div id="mainTeddy">🧸</div>
         </div>
     </div>
 
-    <script>
-        const stage = document.getElementById('stage');
-        const mainTeddy = document.getElementById('mainTeddy');
-        const bears = ['🐻', '🐼', '🐨', '🐻‍❄️', '🍯', '✨'];
-        let count = 0;
+    <!-- FINAL -->
+    <div id="finalMessage">
+        <div style="font-size:95px;margin-bottom:10px;">🧸❤️</div>
+        <h2 style="font-family:'Dancing Script';font-size:2.4rem;margin:0;">
+            My Sweetest Wife,
+        </h2>
+        <div class="letter">
+            Just like a teddy bear, I promise to be your comfort and warmth.  
+            <br><br>
+            You make my life feel like a soft, cozy hug every single day.  
+            <br><br>
+            <strong>Happy Teddy Day, My Love! 🧸💖</strong>
+        </div>
+        <button class="btn-restart" onclick="location.href='index.html'">Back to Our Journey</button>
+    </div>
 
-        // Create orbiting bears
-        bears.forEach((icon, i) => {
-            const bear = document.createElement('div');
-            bear.className = 'orbit-bear';
-            bear.innerText = icon;
-            
-            // Randomly position them around the main teddy
-            const angle = (i / bears.length) * Math.PI * 2;
-            const radius = 120;
-            const x = Math.cos(angle) * radius;
-            const y = Math.sin(angle) * radius;
+</div>
+</div>
+</div>
 
-            bear.style.left = `calc(50% + ${x}px - 20px)`;
-            bear.style.top = `calc(50% + ${y}px - 20px)`;
+<script>
+const stage=document.getElementById('stage');
+const mainTeddy=document.getElementById('mainTeddy');
+const icons=['🐻','🐼','🐨','🐻‍❄️','🍯','✨'];
+let count=0;
 
-            bear.onclick = function() {
-                if(this.style.opacity === "0") return;
-                
-                // Animate bear flying into the main teddy
-                this.style.left = 'calc(50% - 20px)';
-                this.style.top = 'calc(50% - 20px)';
-                this.style.transform = 'scale(0) rotate(360deg)';
-                this.style.opacity = '0';
+// Create orbit bears
+icons.forEach((icon,i)=>{
+    const b=document.createElement('div');
+    b.className='orbit-bear';
+    b.innerText=icon;
 
-                // Make main teddy react
-                count++;
-                mainTeddy.style.transform = `scale(${1 + (count * 0.1)})`;
-                
-                // Create mini heart burst
-                burst(event.clientX, event.clientY);
+    const angle=(i/icons.length)*Math.PI*2;
+    const radius=115;
+    const x=Math.cos(angle)*radius;
+    const y=Math.sin(angle)*radius;
 
-                if(count === bears.length) {
-                    setTimeout(showFinal, 1000);
-                }
-            };
+    b.style.left=`calc(50% + ${x}px - 18px)`;
+    b.style.top=`calc(50% + ${y}px - 18px)`;
 
-            stage.appendChild(bear);
-        });
+    b.onclick=(e)=>{
+        if(b.style.opacity==='0')return;
 
-        function burst(x, y) {
-            for(let i=0; i<5; i++) {
-                const h = document.createElement('div');
-                h.innerText = '❤️';
-                h.style.position = 'fixed';
-                h.style.left = x + 'px';
-                h.style.top = y + 'px';
-                h.style.pointerEvents = 'none';
-                h.style.transition = 'all 0.8s ease';
-                document.body.appendChild(h);
-                setTimeout(() => {
-                    h.style.transform = `translate(${(Math.random()-0.5)*100}px, ${(Math.random()-0.5)*100}px) scale(0)`;
-                    h.style.opacity = '0';
-                }, 10);
-                setTimeout(() => h.remove(), 800);
-            }
+        b.style.left='calc(50% - 18px)';
+        b.style.top='calc(50% - 18px)';
+        b.style.transform='scale(0) rotate(360deg)';
+        b.style.opacity='0';
+
+        count++;
+        mainTeddy.style.transform=`scale(${1+count*0.08})`;
+        burst(e.clientX,e.clientY);
+
+        if(count===icons.length){
+            setTimeout(showFinal,900);
         }
+    };
 
-        function showFinal() {
-            document.getElementById('gameView').style.display = 'none';
-            document.getElementById('finalMessage').style.display = 'block';
-            document.getElementById('card').style.background = 'white';
-            document.getElementById('card').style.transform = 'scale(1.05)';
-        }
+    stage.appendChild(b);
+});
 
-        // Background particles
-        setInterval(() => {
-            const h = document.createElement('div');
-            h.className = 'ambient-heart';
-            h.innerText = '🌸';
-            h.style.left = Math.random() * 100 + 'vw';
-            document.body.appendChild(h);
-            setTimeout(() => h.remove(), 6000);
-        }, 500);
-    </script>
+// Heart burst
+function burst(x,y){
+    for(let i=0;i<6;i++){
+        const h=document.createElement('div');
+        h.innerText='❤️';
+        h.style.position='fixed';
+        h.style.left=x+'px';
+        h.style.top=y+'px';
+        h.style.pointerEvents='none';
+        document.body.appendChild(h);
+
+        h.animate([
+            {transform:'translate(0,0) scale(1)',opacity:1},
+            {transform:`translate(${(Math.random()-0.5)*120}px,${(Math.random()-0.5)*120}px) scale(0)`,opacity:0}
+        ],{duration:900});
+
+        setTimeout(()=>h.remove(),900);
+    }
+}
+
+function showFinal(){
+    document.getElementById('gameView').style.display='none';
+    document.getElementById('finalMessage').style.display='block';
+    document.getElementById('card').style.background='white';
+    document.getElementById('card').style.transform='scale(1.04)';
+}
+
+// Ambient background petals
+setInterval(()=>{
+    const h=document.createElement('div');
+    h.className='ambient-heart';
+    h.innerText=Math.random()>0.5?'🌸':'💖';
+    h.style.left=Math.random()*100+'vw';
+    h.style.fontSize=14+Math.random()*22+'px';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),7000);
+},600);
+</script>
+
 </body>
 </html>
