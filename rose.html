@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rose Day | For My Wife ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;1,700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --primary:#ff4d6d;
+    --secondary:#ff758f;
+    --glass:rgba(255,255,255,.18);
+    --text:#ffffff;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(-45deg,#800e13,#ad2831,#250902,#640d14);
+    background-size:400% 400%;
+    animation:bgMove 14s ease infinite;
+    overflow:hidden;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+/* Floating Roses */
+.rose-particle{
+    position:absolute;
+    pointer-events:none;
+    z-index:1;
+    filter:drop-shadow(0 0 6px rgba(255,255,255,.4));
+}
+
+/* Container */
+.container{
+    position:relative;
+    z-index:10;
+    width:90%;
+    max-width:520px;
+    perspective:1200px;
+}
+
+/* Glass Card */
+.glass-card{
+    background:var(--glass);
+    backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,.25);
+    border-radius:28px;
+    padding:45px 35px;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
+    color:var(--text);
+    animation:cardIn 1.2s ease;
+    transition:.6s cubic-bezier(.4,0,.2,1);
+}
+
+.glass-card:hover{
+    transform:rotateX(3deg) rotateY(-3deg);
+}
+
+@keyframes cardIn{
+    from{opacity:0;transform:scale(.8) translateY(40px)}
+    to{opacity:1;transform:scale(1)}
+}
+
+/* Rose Icon */
+.main-rose{
+    font-size:90px;
+    margin-bottom:15px;
+    display:block;
+    filter:drop-shadow(0 0 18px var(--primary));
+    animation:rosePulse 2.5s infinite;
+}
+
+@keyframes rosePulse{
+    0%{transform:scale(1)}
+    50%{transform:scale(1.12)}
+    100%{transform:scale(1)}
+}
+
+h1{
+    font-family:'Dancing Script',cursive;
+    font-size:4.2rem;
+    margin:0;
+}
+
+.subtitle{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    letter-spacing:1px;
+    opacity:.9;
+    margin-bottom:28px;
+}
+
+/* Button */
+.btn-reveal{
+    background:#fff;
+    color:var(--primary);
+    border:none;
+    padding:15px 38px;
+    border-radius:50px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 12px 25px rgba(0,0,0,.25);
+}
+
+.btn-reveal:hover{
+    transform:translateY(-3px) scale(1.05);
+    box-shadow:0 18px 35px rgba(0,0,0,.35);
+}
+
+/* Reveal Section */
+#secretNote{
+    display:none;
+    margin-top:35px;
+    padding-top:25px;
+    border-top:1px solid rgba(255,255,255,.25);
+}
+
+.letter-content{
+    font-family:'Playfair Display',serif;
+    font-size:1.15rem;
+    line-height:1.7;
+    color:#fff;
+    text-align:left;
+    white-space:pre-line;
+}
+
+/* Typing cursor */
+.typing::after{
+    content:"|";
+    animation:blink 1s infinite;
+}
+
+@keyframes blink{
+    0%,50%{opacity:1}
+    51%,100%{opacity:0}
+}
+
+.hidden{display:none}
+</style>
+</head>
+
+<body>
+
+<!-- Optional romantic music -->
+<!--
+<audio autoplay loop>
+    <source src="romantic.mp3" type="audio/mpeg">
+</audio>
+-->
+
+<div class="container">
+    <div class="glass-card" id="mainCard">
+        <span class="main-rose">🌹</span>
+        <h1>Rose Day</h1>
+        <p class="subtitle">To the flower of my heart</p>
+
+        <div id="introContent">
+            <p>One rose for the woman who makes my life a beautiful garden.</p>
+            <button class="btn-reveal" onclick="revealNote()">Read My Heart 💌</button>
+        </div>
+
+        <div id="secretNote">
+            <div class="letter-content typing" id="typedText"></div>
+            <button class="btn-reveal" style="margin-top:25px;background:transparent;color:#fff;border:1px solid #fff" onclick="hideNote()">Go Back</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Floating roses
+function createRose(){
+    const rose=document.createElement('div');
+    rose.className='rose-particle';
+    const icons=['🌹','🌸','❤️','✨'];
+    rose.innerText=icons[Math.floor(Math.random()*icons.length)];
+    rose.style.left=Math.random()*100+'vw';
+    rose.style.top='-40px';
+    rose.style.fontSize=15+Math.random()*25+'px';
+    rose.style.opacity=Math.random();
+    const duration=6+Math.random()*6;
+    rose.style.transition=`transform ${duration}s linear, opacity ${duration}s`;
+    document.body.appendChild(rose);
+
+    setTimeout(()=>{
+        rose.style.transform=`translate(${Math.random()*80-40}px,110vh) rotate(${Math.random()*360}deg)`;
+        rose.style.opacity=0;
+    },100);
+
+    setTimeout(()=>rose.remove(),duration*1000);
+}
+setInterval(createRose,350);
+
+// Typing letter
+const letterText=`My Dear Wife,
+
+Like a rose, your love is my greatest fragrance.
+You’ve brought so much color into my world that I can't imagine a single day without your bloom.
+
+Every petal of our journey together is a memory I cherish forever.
+Thank you for being my constant spring.
+
+Happy Rose Day, My Love! 🌹❤️`;
+
+function revealNote(){
+    introContent.classList.add('hidden');
+    secretNote.style.display='block';
+    mainCard.style.background='rgba(0,0,0,.45)';
+    typeWriter(letterText,'typedText',30);
+}
+
+function hideNote(){
+    introContent.classList.remove('hidden');
+    secretNote.style.display='none';
+    mainCard.style.background='rgba(255,255,255,.18)';
+    typedText.innerHTML='';
+}
+
+function typeWriter(text,id,speed){
+    let i=0;
+    const el=document.getElementById(id);
+    el.innerHTML='';
+    const timer=setInterval(()=>{
+        el.innerHTML+=text.charAt(i);
+        i++;
+        if(i>=text.length) clearInterval(timer);
+    },speed);
+}
+</script>
+
+</body>
+</html>
