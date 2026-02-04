@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Day | My Vows to You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;1,700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-midnight: #0f0c29;
+            --vow-pink: #ff4d6d;
+            --gold: #d4af37;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: white;
+        }
+
+        /* Twinkling Star Field */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle var(--duration) infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 0.8; transform: scale(1.2); }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 450px;
+            z-index: 10;
+        }
+
+        .luxury-vow-card {
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 40px;
+            padding: 50px 30px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin: 0;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .promise-icon {
+            font-size: 70px;
+            margin: 20px 0;
+            display: inline-block;
+            filter: drop-shadow(0 0 10px var(--vow-pink));
+        }
+
+        /* Vow Items */
+        .vow-list {
+            margin: 25px 0;
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .vow-item {
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 12px;
+            padding: 15px;
+            border-radius: 15px;
+            border-left: 3px solid var(--gold);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .vow-item.visible {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .vow-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            font-style: italic;
+            color: #f8f9fa;
+        }
+
+        .btn-promise {
+            background: linear-gradient(45deg, var(--gold), #f9e29d);
+            color: #1a1a1a;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-promise:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        #finalSeal {
+            display: none;
+            animation: fadeIn 1.2s ease forwards;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div id="stars"></div>
+
+    <div class="container">
+        <div class="luxury-vow-card" id="card">
+            
+            <div id="initial-view">
+                <h1>Promise Day</h1>
+                <div class="promise-icon">🤙</div>
+                <p style="font-weight: 300; opacity: 0.7; font-size: 0.9rem;">Witness my lifetime commitments to you...</p>
+
+                <div class="vow-list" id="vowList"></div>
+
+                <button class="btn-promise" id="actionBtn" onclick="revealNextVow()">Make a Promise</button>
+            </div>
+
+            <div id="finalSeal">
+                <h2 style="font-family: 'Dancing Script'; font-size: 3rem; color: var(--gold);">My Eternal Vow</h2>
+                <div style="font-family: 'Playfair Display'; font-size: 1.25rem; line-height: 1.7; font-style: italic; margin-bottom: 25px;">
+                    "To my beautiful wife, <br><br>
+                    A promise isn't just a word; it's a piece of my heart given to you. Today, I don't just promise to love you, I promise to be your home, your peace, and your biggest supporter forever."
+                </div>
+                <div style="font-size: 40px;">💍✨❤️</div>
+                <button class="btn-promise" style="margin-top: 20px; background: transparent; color: white; border: 1px solid white;" onclick="location.reload()">Re-read Vows</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const promises = [
+            "I promise to always hold your hand through every storm.",
+            "I promise to be the reason behind your beautiful smile.",
+            "I promise to listen to you, even when you don't speak.",
+            "I promise to choose you, every single day, forever.",
+            "I promise to always give you my time and my undivided attention.",
+            "I promise that my love for you will only grow deeper."
+        ];
+
+        let index = 0;
+
+        function revealNextVow() {
+            if (index < promises.length) {
+                const list = document.getElementById('vowList');
+                const div = document.createElement('div');
+                div.className = 'vow-item';
+                div.innerHTML = `<span class="vow-text">"${promises[index]}"</span>`;
+                list.appendChild(div);
+                
+                // Trigger animation
+                setTimeout(() => div.classList.add('visible'), 10);
+                
+                // Auto scroll to bottom of list
+                list.scrollTop = list.scrollHeight;
+
+                index++;
+
+                if (index === promises.length) {
+                    const btn = document.getElementById('actionBtn');
+                    btn.innerText = "Seal These Promises";
+                    btn.onclick = showFinal;
+                }
+            }
+        }
+
+        function showFinal() {
+            document.getElementById('initial-view').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('initial-view').style.display = 'none';
+                document.getElementById('finalSeal').style.display = 'block';
+                document.getElementById('card').style.border = "2px solid var(--gold)";
+            }, 500);
+        }
+
+        // Star Background Logic
+        const container = document.getElementById('stars');
+        for (let i = 0; i < 120; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2 + 1 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
+            star.style.animationDelay = Math.random() * 5 + 's';
+            container.appendChild(star);
+        }
+    </script>
+</body>
+</html>

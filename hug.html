@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Hug Day | The Royal Proclamation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --royal-gold: #d4af37;
+            --deep-rose: #800e13;
+            --soft-cream: #fff5f5;
+            --gold-light: #f9e29d;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: radial-gradient(circle at center, #fff5f5 0%, #ffe3e3 100%);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        /* Ambient Background Magic */
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.5;
+            animation: drift 8s infinite linear;
+        }
+
+        @keyframes drift {
+            from { transform: translateY(110vh) rotate(0deg); }
+            to { transform: translateY(-10vh) rotate(360deg); }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            z-index: 10;
+        }
+
+        .luxury-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border: 2px solid var(--royal-gold);
+            border-radius: 40px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(128, 14, 19, 0.15);
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.2rem;
+            color: var(--deep-rose);
+            margin: 0;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.05);
+        }
+
+        .embrace-stage {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            margin: 35px 0;
+            position: relative;
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: 60px;
+            border: 1px dashed var(--royal-gold);
+        }
+
+        .character {
+            font-size: 65px;
+            transition: transform 0.1s linear;
+            z-index: 5;
+            user-select: none;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+        }
+
+        .hug-btn {
+            background: var(--deep-rose);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 22px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(128, 14, 19, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.2s;
+        }
+
+        /* Result View */
+        #finalNote {
+            display: none;
+            animation: scaleUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes scaleUp {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .letter {
+            font-family: 'Caveat', cursive;
+            font-size: 1.55rem;
+            line-height: 1.4;
+            color: #2b1113;
+            text-align: left;
+            margin-top: 20px;
+            background: #fff;
+            padding: 25px;
+            border-radius: 20px;
+            border-left: 6px solid var(--royal-gold);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
+            position: relative;
+        }
+
+        .letter p.proclamation {
+            margin: 0 0 10px 0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--royal-gold);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .signature {
+            text-align: right;
+            font-weight: bold;
+            color: var(--royal-gold);
+            margin-top: 10px;
+            font-size: 1.4rem;
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="luxury-card" id="card">
+            
+            <div id="interactive">
+                <h1>Hug Day</h1>
+                <p style="font-weight: 300; font-size: 0.9rem; color: #666;">Hold the button to unite the Throne</p>
+
+                <div class="embrace-stage">
+                    <div class="character" id="king">🤴</div>
+                    <div class="character" id="queen">👸</div>
+                </div>
+
+                <button class="hug-btn" 
+                    id="trigger"
+                    onmousedown="start(event)" 
+                    onmouseup="stop(event)" 
+                    onmouseleave="stop(event)"
+                    ontouchstart="start(event)" 
+                    ontouchend="stop(event)">
+                    Press & Hold to Hug ❤️
+                </button>
+            </div>
+
+            <div id="finalNote">
+                <div style="font-size: 70px; filter: drop-shadow(0 0 10px rgba(212,175,55,0.4));">👑❤️👑</div>
+                <h2 style="font-family: 'Dancing Script'; font-size: 2.8rem; color: var(--royal-gold); margin: 0;">My Eternal Queen</h2>
+                
+                <div class="letter">
+                    <p class="proclamation">A Royal Proclamation of Love</p>
+                    
+                    "In the kingdom of my life, you are the only ruler. Many see a King as one who protects his land, but I am a King who is protected by your love. 
+                    <br><br>
+                    When I hold you, the noise of the world fades, and I am reminded that my arms were built to be your fortress. Your heart is the only throne I ever wish to serve, and your embrace is the only place where I find true peace. 
+                    <br><br>
+                    <strong>Every hug is a vow that I am yours, and you are mine, forever.</strong>"
+                    
+                    <div class="signature">— Your King</div>
+                </div>
+
+                <button class="hug-btn" style="margin-top: 25px; background: linear-gradient(45deg, #d4af37, #f9e29d); color: #4a0e0e; box-shadow: 0 10px 20px rgba(212,175,55,0.3);" onclick="location.reload()">
+                    Renew Our Embrace
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        let prog = 0;
+        let active = null;
+        const king = document.getElementById('king');
+        const queen = document.getElementById('queen');
+        const trigger = document.getElementById('trigger');
+
+        function start(e) {
+            if (e) e.preventDefault();
+            if (active) return;
+            
+            // Visual feedback on press
+            trigger.style.transform = "scale(0.98)";
+
+            active = setInterval(() => {
+                if (prog < 100) {
+                    prog += 2.5; 
+                    const moveX = (prog / 100) * 85; 
+                    king.style.transform = `translateX(${moveX}px)`;
+                    queen.style.transform = `translateX(-${moveX}px)`;
+                    
+                    // Progress bar effect on the button
+                    trigger.style.background = `linear-gradient(90deg, #800e13 ${prog}%, #4a0e0e ${prog}%)`;
+                } else {
+                    finish();
+                }
+            }, 30);
+        }
+
+        function stop(e) {
+            if (e) e.preventDefault();
+            trigger.style.transform = "scale(1)";
+            
+            if (prog < 100) {
+                clearInterval(active);
+                active = null;
+                prog = 0;
+                
+                // Spring back animation
+                king.style.transition = "transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+                queen.style.transition = "transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+                king.style.transform = `translateX(0)`;
+                queen.style.transform = `translateX(0)`;
+                
+                trigger.style.background = "var(--deep-rose)";
+
+                setTimeout(() => {
+                    king.style.transition = "none";
+                    queen.style.transition = "none";
+                }, 500);
+            }
+        }
+
+        function finish() {
+            clearInterval(active);
+            if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+            
+            // Visual transition
+            document.getElementById('interactive').style.opacity = "0";
+            document.getElementById('interactive').style.transition = "0.5s";
+            
+            setTimeout(() => {
+                document.getElementById('interactive').style.display = "none";
+                document.getElementById('finalNote').style.display = "block";
+                document.getElementById('card').style.background = "#fff";
+                document.getElementById('card').style.borderWidth = "3px";
+                
+                // Create final heart burst
+                for(let i=0; i<15; i++) createHeart();
+            }, 500);
+        }
+
+        function createHeart() {
+            const h = document.createElement('div');
+            h.innerText = '❤️';
+            h.style.position = 'fixed';
+            h.style.left = '50%';
+            h.style.top = '50%';
+            h.style.fontSize = Math.random() * 20 + 20 + 'px';
+            h.style.transition = 'all 1.2s ease-out';
+            h.style.zIndex = '1000';
+            document.body.appendChild(h);
+            
+            setTimeout(() => {
+                const tx = (Math.random() - 0.5) * 400;
+                const ty = (Math.random() - 0.5) * 400;
+                h.style.transform = `translate(${tx}px, ${ty}px) scale(0) rotate(${Math.random()*360}deg)`;
+                h.style.opacity = '0';
+            }, 10);
+            setTimeout(() => h.remove(), 1200);
+        }
+
+        // Background Particles
+        setInterval(() => {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.innerText = Math.random() > 0.5 ? '🌸' : '✨';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.fontSize = Math.random() * 20 + 10 + 'px';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 8000);
+        }, 1000);
+    </script>
+</body>
+</html>

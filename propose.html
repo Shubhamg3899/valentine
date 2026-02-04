@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Propose Day | The Final Answer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Dancing+Script:wght@700&family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --deep-space: #06061a;
+            --glass: rgba(255, 255, 255, 0.08);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(circle at center, #101035 0%, var(--deep-space) 100%);
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: white;
+        }
+
+        #star-canvas { position: fixed; inset: 0; z-index: -1; }
+
+        .container { 
+            width: 90%; 
+            max-width: 450px; 
+            z-index: 10; 
+            display: flex;
+            justify-content: center;
+        }
+
+        .propose-card {
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 40px;
+            padding: 40px 25px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            width: 100%;
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.5s ease;
+        }
+
+        h1 {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+
+        #counter { color: var(--gold); font-weight: 600; margin-bottom: 10px; letter-spacing: 2px; }
+
+        /* Proposal Phase Styles */
+        #proposalContent { display: none; width: 100%; }
+
+        .ring-icon { font-size: 60px; margin-bottom: 15px; animation: ringGlow 2s infinite alternate; }
+        @keyframes ringGlow { from { filter: drop-shadow(0 0 5px gold); } to { filter: drop-shadow(0 0 20px gold); } }
+
+        .propose-message {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        /* Button Layout */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            height: 60px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1.5px solid var(--gold);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .btn-yes {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            animation: pulseYes 2s infinite;
+        }
+
+        @keyframes pulseYes {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+
+        .btn-no {
+            background: transparent;
+            color: var(--gold);
+            position: relative;
+        }
+
+        /* Success Slide (Fixed Dimensions) */
+        #successView {
+            display: none;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .success-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: var(--gold);
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .success-sub {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.5;
+            padding: 0 15px;
+        }
+
+        .collect-star {
+            font-size: 35px;
+            cursor: pointer;
+            position: absolute;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body onload="initStars()">
+
+    <canvas id="star-canvas"></canvas>
+
+    <div class="container">
+        <div class="propose-card" id="card">
+            
+            <div id="gameView">
+                <h1>Propose Day</h1>
+                <div id="counter">Find 5 Stars: <span id="count">0</span>/5</div>
+                <div id="starField" style="height: 250px; position: relative;"></div>
+            </div>
+
+            <div id="proposalContent">
+                <div class="ring-icon">💍</div>
+                <h2 class="propose-letter">To My Dearest Wife,</h2>
+                <div class="propose-message">
+                    "In a universe of infinite stars, my soul only recognizes yours. I don't just want a Valentine; I want a lifetime of adventures, laughter, and home with you. <br><br>
+                    <strong>Will you be mine forever?</strong>"
+                </div>
+                
+                <div class="btn-container">
+                    <button class="btn btn-yes" onclick="showSuccess()">Yes!</button>
+                    <button class="btn btn-no" id="noBtn" onmouseover="dodge()" ontouchstart="dodge()">No</button>
+                </div>
+            </div>
+
+            <div id="successView">
+                <div style="font-size: 60px;">💖✨</div>
+                <h2 class="success-text">I knew you'd say Yes!</h2>
+                <p class="success-sub">
+                    My heart is officially the happiest in the universe. <br> 
+                    <strong>I love you more than words can say.</strong>
+                </p>
+                <button class="btn btn-yes" style="margin-top: 25px;" onclick="location.reload()">Return to Hub</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        let found = 0;
+        const total = 5;
+
+        function initStars() {
+            const field = document.getElementById('starField');
+            for(let i=0; i<total; i++) spawnStar(field);
+            drawBackground();
+        }
+
+        function spawnStar(field) {
+            const star = document.createElement('div');
+            star.className = 'collect-star';
+            star.innerText = '✨';
+            star.style.left = Math.random() * 80 + 10 + '%';
+            star.style.top = Math.random() * 70 + 10 + '%';
+            
+            star.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.2)' }], {
+                duration: 1000 + Math.random()*1000,
+                iterations: Infinity,
+                direction: 'alternate'
+            });
+
+            star.onclick = function() {
+                found++;
+                document.getElementById('count').innerText = found;
+                this.style.visibility = 'hidden';
+                if(found === total) setTimeout(revealProposal, 600);
+            };
+            field.appendChild(star);
+        }
+
+        function revealProposal() {
+            document.getElementById('gameView').style.display = 'none';
+            document.getElementById('proposalContent').style.display = 'block';
+        }
+
+        function dodge() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * 240 - 120;
+            const y = Math.random() * 160 - 80;
+            btn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        function showSuccess() {
+            document.getElementById('proposalContent').style.display = 'none';
+            document.getElementById('successView').style.display = 'flex';
+            
+            // Trigger confetti hearts
+            for(let i=0; i<30; i++) {
+                const h = document.createElement('div');
+                h.innerText = '💖';
+                h.style.position = 'fixed';
+                h.style.left = '50%';
+                h.style.top = '50%';
+                h.style.pointerEvents = 'none';
+                h.style.zIndex = '2000';
+                document.body.appendChild(h);
+                h.animate([
+                    { transform: 'translate(0,0) scale(1)', opacity: 1 },
+                    { transform: `translate(${(Math.random()-0.5)*window.innerWidth}px, ${(Math.random()-0.5)*window.innerHeight}px) scale(0)`, opacity: 0 }
+                ], { duration: 2000 });
+                setTimeout(() => h.remove(), 2000);
+            }
+        }
+
+        function drawBackground() {
+            const canvas = document.getElementById('star-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            for(let i=0; i<120; i++) {
+                ctx.fillStyle = "white";
+                ctx.beginPath();
+                ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, Math.random()*1.2, 0, Math.PI*2);
+                ctx.fill();
+            }
+        }
+    </script>
+</body>
+</html>

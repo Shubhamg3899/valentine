@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocolate Day | My Sweetest Love</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-choco: #3c0900;
+            --milk-choco: #7b3f00;
+            --caramel: #d4a373;
+            --cream: #faedcd;
+            --accent: #ff9a9e;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #2b0f0e 0%, #5d2e24 100%);
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: var(--cream);
+        }
+
+        /* Moving Background Stream */
+        .choco-stream {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/dark-wood.png');
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 500px;
+            z-index: 10;
+            perspective: 1000px;
+        }
+
+        .choco-card {
+            background: rgba(60, 9, 0, 0.85);
+            border: 3px solid var(--caramel);
+            border-radius: 40px;
+            padding: 40px 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            backdrop-filter: blur(12px);
+            text-align: center;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.2rem;
+            color: var(--caramel);
+            margin: 0;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background: #2b0f0e;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+            border: 1px solid var(--caramel);
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--caramel), var(--accent));
+            transition: width 0.5s ease;
+        }
+
+        .choco-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .truffle {
+            background: var(--milk-choco);
+            aspect-ratio: 1;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .truffle:hover {
+            transform: scale(1.1) rotate(5deg);
+            background: var(--caramel);
+        }
+
+        .truffle.clicked {
+            transform: scale(0.8);
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        #messageArea {
+            font-family: 'Caveat', cursive;
+            font-size: 1.6rem;
+            color: var(--caramel);
+            min-height: 40px;
+            margin-bottom: 20px;
+            animation: fadeIn 0.5s;
+        }
+
+        /* Final Love Letter Section */
+        #finalSurprise {
+            display: none;
+            text-align: left;
+            animation: finalReveal 1.2s forwards;
+        }
+
+        @keyframes finalReveal {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .letter-text {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            line-height: 1.4;
+            color: var(--cream);
+        }
+
+        .btn-reset {
+            margin-top: 20px;
+            background: transparent;
+            border: 1px solid var(--caramel);
+            color: var(--caramel);
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+    </style>
+</head>
+<body>
+
+    <div class="choco-stream"></div>
+
+    <div class="container">
+        <div class="choco-card" id="card">
+            <div id="gameView">
+                <div style="font-size: 50px;">🍬</div>
+                <h1>Chocolate Day</h1>
+                <p style="font-style: italic; opacity: 0.8;">My life is sweet because of you...</p>
+
+                <div class="progress-container">
+                    <div class="progress-bar" id="bar"></div>
+                </div>
+
+                <div id="messageArea">Pick a treat to start!</div>
+
+                <div class="choco-grid">
+                    <div class="truffle" onclick="handleChoco(this, 'You melt my heart every single day!')">🍫</div>
+                    <div class="truffle" onclick="handleChoco(this, 'You are the caramel in my life!')">🍯</div>
+                    <div class="truffle" onclick="handleChoco(this, 'Still addicted to your beautiful smile.')">🍪</div>
+                    <div class="truffle" onclick="handleChoco(this, ' Sweeter than any truffle in the world.')">🍩</div>
+                    <div class="truffle" onclick="handleChoco(this, 'To my favorite person, my forever love.')">💝</div>
+                    <div class="truffle" onclick="handleChoco(this, 'I love you more than chocolate!')">🍦</div>
+                </div>
+            </div>
+
+            <div id="finalSurprise">
+                <h2 style="font-family: 'Pacifico'; color: var(--caramel);">My Dearest Wife,</h2>
+                <div class="letter-text">
+                    Just like a box of chocolates, our life is full of different flavors—some sweet, some nutty, but all of them are perfect because I'm sharing them with you. <br><br>
+                    Thank you for being the sweetness that keeps me going. Today and every day, you are my favorite treat. <br><br>
+                    <strong>Happy Chocolate Day!</strong>
+                </div>
+                <button class="btn-reset" onclick="location.reload()">Open Box Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let clicks = 0;
+        const total = 6;
+
+        function handleChoco(el, msg) {
+            el.classList.add('clicked');
+            clicks++;
+            
+            // Update Message
+            const msgArea = document.getElementById('messageArea');
+            msgArea.innerText = msg;
+            
+            // Update Progress Bar
+            const percent = (clicks / total) * 100;
+            document.getElementById('bar').style.width = percent + '%';
+
+            // Create some heart bursts
+            createBurst(el);
+
+            if(clicks === total) {
+                setTimeout(revealLetter, 1200);
+            }
+        }
+
+        function createBurst(el) {
+            for(let i=0; i<6; i++) {
+                const heart = document.createElement('div');
+                heart.innerText = '❤️';
+                heart.style.position = 'fixed';
+                heart.style.left = event.clientX + 'px';
+                heart.style.top = event.clientY + 'px';
+                heart.style.transition = 'all 1s ease';
+                heart.style.pointerEvents = 'none';
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.style.transform = `translate(${(Math.random()-0.5)*150}px, ${(Math.random()-0.5)*150}px) scale(0)`;
+                    heart.style.opacity = '0';
+                }, 10);
+                setTimeout(() => heart.remove(), 1000);
+            }
+        }
+
+        function revealLetter() {
+            document.getElementById('gameView').style.display = 'none';
+            document.getElementById('finalSurprise').style.display = 'block';
+            document.getElementById('card').style.background = 'rgba(43, 15, 14, 0.95)';
+        }
+    </script>
+</body>
+</html>

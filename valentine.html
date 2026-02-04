@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Legend of Us | 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;1,700&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --royal-red: #4a0404;
+            --gold: #d4af37;
+            --parchment: #fdfaf5;
+            --accent: #ff4d6d;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body, html { 
+            background: #000; 
+            color: var(--parchment); 
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            /* Behavior set to auto initially to make the forced reset instant */
+            scroll-behavior: auto; 
+        }
+
+        /* --- THE MAGIC COVER --- */
+        #cover {
+            height: 100vh;
+            width: 100%;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0; left: 0; z-index: 1000;
+            transition: transform 1.5s cubic-bezier(0.7, 0, 0.3, 1);
+            text-align: center;
+        }
+
+        #cover.open { transform: translateY(-100vh); }
+
+        .unlock-btn {
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-family: 'Cinzel Decorative';
+            cursor: pointer;
+            letter-spacing: 5px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .unlock-btn:hover { background: var(--gold); color: #000; }
+
+        /* --- BACKGROUND PARTICLES --- */
+        #ambient-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+        }
+
+        /* --- STORY CHAPTERS --- */
+        .chapter {
+            min-height: 110vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px;
+            position: relative;
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .chapter::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.4), rgba(0,0,0,0.8));
+            z-index: 2;
+        }
+
+        .content-card {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 40px;
+            padding: 60px 40px;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: 1.5s all cubic-bezier(0.1, 0.8, 0.2, 1);
+        }
+
+        .content-card.reveal { opacity: 1; transform: scale(1); }
+
+        .chapter-num {
+            font-family: 'Cinzel Decorative';
+            color: var(--gold);
+            font-size: 0.9rem;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .chapter-title {
+            font-family: 'Dancing Script';
+            font-size: 3.5rem;
+            color: #fff;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px var(--gold);
+        }
+
+        .chapter-text {
+            font-family: 'Playfair Display';
+            font-size: 1.3rem;
+            line-height: 2;
+            color: #ececec;
+            font-style: italic;
+        }
+
+        .image-well {
+            width: 100%;
+            height: 300px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 1px solid var(--gold);
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* --- PROGRESS BAR --- */
+        #progress {
+            position: fixed;
+            top: 0; left: 0; height: 3px;
+            background: var(--gold);
+            z-index: 2000;
+            width: 0%;
+        }
+
+        /* --- FINAL FOOTER --- */
+        footer {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            z-index: 10;
+            position: relative;
+        }
+
+        .final-heart { font-size: 80px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.7; } }
+
+    </style>
+</head>
+<body onload="resetScroll()">
+
+    <div id="progress"></div>
+    <canvas id="ambient-canvas"></canvas>
+
+    <div id="cover">
+        <h1 style="font-family: 'Cinzel Decorative'; font-size: 3rem; color: var(--gold);">The Legend of Us</h1>
+        <p style="font-family: 'Dancing Script'; font-size: 1.5rem;">A Story Written by Fate, Lived by Us</p>
+        <button class="unlock-btn" onclick="openBook()">Open Our Story</button>
+    </div>
+
+    <section class="chapter" style="background-image: url('https://images.unsplash.com/photo-1516589174184-c6858b16ecb0?auto=format&fit=crop&w=1920&q=80');">
+        <div class="content-card">
+            <span class="chapter-num">Chapter I</span>
+            <h2 class="chapter-title">The First Spark</h2>
+            <div class="image-well" style="background-image: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800');"></div>
+            <p class="chapter-text">
+                "It started with a glance, but even then, I knew. Some people wait a lifetime for a connection like ours, but I found my universe in you within seconds. You were the piece of my soul I didn't know was missing."
+            </p>
+        </div>
+    </section>
+
+    <section class="chapter" style="background-image: url('https://images.unsplash.com/photo-1470219556762-1771e7f9f273?auto=format&fit=crop&w=1920&q=80');">
+        <div class="content-card">
+            <span class="chapter-num">Chapter II</span>
+            <h2 class="chapter-title">The Melody of Laughter</h2>
+            <div class="image-well" style="background-image: url('https://images.unsplash.com/photo-1522673607200-1648832cee98?auto=format&fit=crop&w=800');"></div>
+            <p class="chapter-text">
+                "Through the ups and downs, your laughter has been my favorite song. You have a way of making the ordinary feel extraordinary. Every smile you've shared with me is a diamond I keep in the vault of my heart."
+            </p>
+        </div>
+    </section>
+
+    <section class="chapter" style="background-image: url('https://images.unsplash.com/photo-1518177139828-d8869152cc52?auto=format&fit=crop&w=1920&q=80');">
+        <div class="content-card">
+            <span class="chapter-num">Chapter III</span>
+            <h2 class="chapter-title">The Anchor in the Storm</h2>
+            <div class="image-well" style="background-image: url('https://images.unsplash.com/photo-1501901664589-51b8be6ca802?auto=format&fit=crop&w=800');"></div>
+            <p class="chapter-text">
+                "Life isn't always fair, but having you by my side makes it bearable. You are my calm in the chaos and my strength when I am weak. Thank you for being the one person I can always count on."
+            </p>
+        </div>
+    </section>
+
+    <section class="chapter" style="background-image: url('https://images.unsplash.com/photo-1464347744102-11db6282f854?auto=format&fit=crop&w=1920&q=80');">
+        <div class="content-card">
+            <span class="chapter-num">Chapter IV</span>
+            <h2 class="chapter-title">Our Quiet Sanctuary</h2>
+            <div class="image-well" style="background-image: url('https://images.unsplash.com/photo-1516589174184-c6858b16ecb0?auto=format&fit=crop&w=800');"></div>
+            <p class="chapter-text">
+                "It's in the silent moments—holding hands on the couch or a quiet morning coffee—where our love truly breathes. These are the pages where we don't need words to understand each other."
+            </p>
+        </div>
+    </section>
+
+    <section class="chapter" style="background-image: url('https://images.unsplash.com/photo-1521226909401-443b3519c504?auto=format&fit=crop&w=1920&q=80');">
+        <div class="content-card">
+            <span class="chapter-num">Chapter V</span>
+            <h2 class="chapter-title">A Promise Kept</h2>
+            <div class="image-well" style="background-image: url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800');"></div>
+            <p class="chapter-text">
+                "I promise to give you my time, my devotion, and my whole heart. Every day I wake up and choose you, and every night I go to sleep grateful that you chose me too."
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="final-heart">❤️</div>
+        <h2 style="font-family: 'Cinzel Decorative'; font-size: 2.5rem; color: var(--gold);">Happy Valentine's Day</h2>
+        <p style="font-family: 'Dancing Script'; font-size: 2rem; margin-top: 20px;">To My Forever Queen</p>
+        <p style="margin-top: 40px; font-size: 0.8rem; letter-spacing: 3px; opacity: 0.5;">THE END IS JUST THE BEGINNING</p>
+    </footer>
+
+    <script>
+        // FORCED RESET: This ensures the page is always at the top when loaded
+        function resetScroll() {
+            window.scrollTo(0, 0);
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+        }
+
+        function openBook() {
+            // Force scroll to top again just in case before revealing
+            window.scrollTo(0, 0);
+            
+            // Add the opening animation
+            document.getElementById('cover').classList.add('open');
+            
+            // Allow scrolling after opening
+            document.body.style.overflowY = "auto";
+            
+            // Re-enable smooth scrolling after the initial reset
+            setTimeout(() => {
+                document.documentElement.style.scrollBehavior = "smooth";
+            }, 100);
+        }
+
+        // Particle System
+        const canvas = document.getElementById('ambient-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            for(let i=0; i<60; i++) particles.push(new Particle());
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedY = Math.random() * 0.5 + 0.2;
+                this.opacity = Math.random();
+            }
+            update() {
+                this.y -= this.speedY;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2); ctx.fill();
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('scroll', () => {
+            // Reveal Cards
+            const cards = document.querySelectorAll('.content-card');
+            cards.forEach(card => {
+                const top = card.getBoundingClientRect().top;
+                if (top < window.innerHeight * 0.8) card.classList.add('reveal');
+            });
+
+            // Progress Bar
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            document.getElementById("progress").style.width = (winScroll / height) * 100 + "%";
+        });
+
+        init(); animate();
+        // Keep scroll locked until the book is opened
+        document.body.style.overflowY = "hidden";
+    </script>
+</body>
+</html>
