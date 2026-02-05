@@ -131,16 +131,18 @@
             font-style: italic;
         }
 
-        .image-well {
-            width: 100%;
-            height: 300px;
-            border-radius: 20px;
-            margin: 30px 0;
-            border: 1px solid var(--gold);
-            background-size: cover;
-            background-position: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+.image-well {
+    width: 100%;
+    height: 325px;
+    border-radius: 20px;
+    margin: 30px 0;
+    border: 1px solid var(--gold);
+    background-size: contain;
+    background-position: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    background: round;
+}
+
 
         /* --- PROGRESS BAR --- */
         #progress {
@@ -152,19 +154,74 @@
         }
 
         /* --- FINAL FOOTER --- */
-        footer {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: #000;
-            z-index: 10;
-            position: relative;
-        }
+        /* ===== ENHANCED FOOTER ===== */
+footer{
+    min-height:100vh;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:60px 20px;
+    background:
+      linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.85)),
+      url('https://img.freepik.com/premium-photo/poster-couple-kissing-front-heart-that-says-happy-valentine_882954-113485.jpg?ga=GA1.1.2132214268.1767085607&semt=ais_hybrid&w=740&q=80');
+    background-size: cover;
+    background-position: bottom;
+    overflow:hidden;
+}
 
-        .final-heart { font-size: 80px; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.7; } }
+/* Soft overlay glow */
+footer::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at center, rgba(212,175,55,.15), transparent 70%);
+    z-index:0;
+}
+
+.footer-content{
+    position:relative;
+    z-index:2;
+    max-width:700px;
+}
+
+.final-heart{
+    font-size:90px;
+    animation:pulse 2s infinite;
+    margin-bottom:20px;
+}
+
+.footer-message{
+    font-family:'Playfair Display';
+    font-size:1.25rem;
+    line-height:1.9;
+    font-style:italic;
+    margin:25px 0;
+    color:#f1f1f1;
+}
+
+/* Floating hearts */
+.footer-heart{
+    position:absolute;
+    bottom:-30px;
+    font-size:18px;
+    opacity:.6;
+    animation:floatUp 6s linear infinite;
+}
+
+@keyframes floatUp{
+    from{transform:translateY(0) scale(1)}
+    to{transform:translateY(-120vh) scale(1.6);opacity:0}
+}
+
+/* Mobile */
+@media(max-width:768px){
+    .final-heart{font-size:70px}
+    .footer-message{font-size:1.1rem}
+}
+
 
     </style>
 </head>
@@ -179,7 +236,7 @@
         <button class="unlock-btn" onclick="openBook()">Open Our Story</button>
     </div>
 
-    <section class="chapter" style="background-image: url('https://images.unsplash.com/photo-1516589174184-c6858b16ecb0?auto=format&fit=crop&w=1920&q=80');">
+    <section class="chapter" style="background-image: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1920&q=80');">
         <div class="content-card">
             <span class="chapter-num">Chapter I</span>
             <h2 class="chapter-title">The First Spark</h2>
@@ -190,44 +247,44 @@
         </div>
     </section>
 
-    <section class="chapter" style="background-image: url('https://images.unsplash.com/photo-1470219556762-1771e7f9f273?auto=format&fit=crop&w=1920&q=80');">
+    <section class="chapter" style="background-image: url('https://img.freepik.com/premium-photo/couple-love-with-playing-guitar-nature_926199-2713148.jpg?w=1920&q=80');">
         <div class="content-card">
             <span class="chapter-num">Chapter II</span>
             <h2 class="chapter-title">The Melody of Laughter</h2>
-            <div class="image-well" style="background-image: url('https://images.unsplash.com/photo-1522673607200-1648832cee98?auto=format&fit=crop&w=800');"></div>
+            <div class="image-well" style="background-image: url('https://img.freepik.com/premium-photo/couple-love-with-playing-guitar-nature_926199-2713148.jpg?w=800');"></div>
             <p class="chapter-text">
                 "Through the ups and downs, your laughter has been my favorite song. You have a way of making the ordinary feel extraordinary. Every smile you've shared with me is a diamond I keep in the vault of my heart."
             </p>
-        </div>
+        </div>  
     </section>
 
-    <section class="chapter" style="background-image: url('https://images.unsplash.com/photo-1518177139828-d8869152cc52?auto=format&fit=crop&w=1920&q=80');">
+    <section class="chapter" style="background-image: url('https://img.freepik.com/premium-photo/couples-celebrating-valentines-day-with-romantic-b-00173-02_883586-125748.jpg?ga=GA1.1.2132214268.1767085607&semt=ais_hybrid&w=740&q=80');">
         <div class="content-card">
             <span class="chapter-num">Chapter III</span>
             <h2 class="chapter-title">The Anchor in the Storm</h2>
-            <div class="image-well" style="background-image: url('https://images.unsplash.com/photo-1501901664589-51b8be6ca802?auto=format&fit=crop&w=800');"></div>
+            <div class="image-well" style="background-image: url('https://img.freepik.com/premium-photo/couples-celebrating-valentines-day-with-romantic-b-00173-02_883586-125748.jpg?ga=GA1.1.2132214268.1767085607&semt=ais_hybrid&w=740&q=80');"></div>
             <p class="chapter-text">
                 "Life isn't always fair, but having you by my side makes it bearable. You are my calm in the chaos and my strength when I am weak. Thank you for being the one person I can always count on."
             </p>
         </div>
     </section>
 
-    <section class="chapter" style="background-image: url('https://images.unsplash.com/photo-1464347744102-11db6282f854?auto=format&fit=crop&w=1920&q=80');">
+    <section class="chapter" style="background-image: url('https://img.freepik.com/premium-photo/romanticisminspired-image-picnic-misty-forest-with-rays-sunlight-filtering-through_891336-53417.jpg?ga=GA1.1.2132214268.1767085607&semt=ais_hybrid&w=740&q=80');">
         <div class="content-card">
             <span class="chapter-num">Chapter IV</span>
             <h2 class="chapter-title">Our Quiet Sanctuary</h2>
-            <div class="image-well" style="background-image: url('https://images.unsplash.com/photo-1516589174184-c6858b16ecb0?auto=format&fit=crop&w=800');"></div>
+            <div class="image-well" style="background-image: url('https://img.freepik.com/premium-photo/romanticisminspired-image-picnic-misty-forest-with-rays-sunlight-filtering-through_891336-53417.jpg?ga=GA1.1.2132214268.1767085607&semt=ais_hybrid&w=740&q=80');"></div>
             <p class="chapter-text">
                 "It's in the silent moments—holding hands on the couch or a quiet morning coffee—where our love truly breathes. These are the pages where we don't need words to understand each other."
             </p>
         </div>
     </section>
 
-    <section class="chapter" style="background-image: url('https://images.unsplash.com/photo-1521226909401-443b3519c504?auto=format&fit=crop&w=1920&q=80');">
+    <section class="chapter" style="background-image: url('https://img.freepik.com/premium-photo/medium-shot-marriage-proposal-outdoors_926199-2958602.jpg?ga=GA1.1.2132214268.1767085607&semt=ais_hybrid&w=740&q=80');">
         <div class="content-card">
             <span class="chapter-num">Chapter V</span>
             <h2 class="chapter-title">A Promise Kept</h2>
-            <div class="image-well" style="background-image: url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800');"></div>
+            <div class="image-well" style="background-image: url('https://img.freepik.com/premium-photo/medium-shot-marriage-proposal-outdoors_926199-2958602.jpg?ga=GA1.1.2132214268.1767085607&semt=ais_hybrid&w=740&q=80');"></div>
             <p class="chapter-text">
                 "I promise to give you my time, my devotion, and my whole heart. Every day I wake up and choose you, and every night I go to sleep grateful that you chose me too."
             </p>
@@ -235,11 +292,42 @@
     </section>
 
     <footer>
+    <div class="footer-content">
         <div class="final-heart">❤️</div>
-        <h2 style="font-family: 'Cinzel Decorative'; font-size: 2.5rem; color: var(--gold);">Happy Valentine's Day</h2>
-        <p style="font-family: 'Dancing Script'; font-size: 2rem; margin-top: 20px;">To My Forever Queen</p>
-        <p style="margin-top: 40px; font-size: 0.8rem; letter-spacing: 3px; opacity: 0.5;">THE END IS JUST THE BEGINNING</p>
-    </footer>
+
+        <h2 style="font-family:'Cinzel Decorative'; font-size:2.6rem; color:var(--gold);">
+            Happy Valentine’s Day
+        </h2>
+
+        <p style="font-family:'Dancing Script'; font-size:2.1rem; margin-top:15px;">
+            To My Forever Queen
+        </p>
+
+        <p class="footer-message">
+            "If I had a thousand lifetimes,  
+            I would still find you in every one of them.  
+            Loving you isn’t a choice —  
+            it’s who I am."
+        </p>
+
+        <p style="margin-top:40px; font-size:.8rem; letter-spacing:3px; opacity:.6;">
+            THE END IS JUST THE BEGINNING
+        </p>
+    </div>
+</footer>
+<script>
+/* Floating hearts in footer */
+setInterval(()=>{
+    const h=document.createElement('div');
+    h.className='footer-heart';
+    h.innerText='❤️';
+    h.style.left=Math.random()*100+'vw';
+    h.style.animationDuration=4+Math.random()*4+'s';
+    document.querySelector('footer').appendChild(h);
+    setTimeout(()=>h.remove(),8000);
+},500);
+</script>
+
 
     <script>
         // FORCED RESET: This ensures the page is always at the top when loaded
